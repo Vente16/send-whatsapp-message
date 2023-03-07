@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { Twilio } from "twilio";
-import LeadExternal from "../../domain/lead-external.repository";
+import LeadExternal, { Message } from "../../domain/lead-external.repository";
 
 const accountSid = process.env.TWILIO_SID || "";
 const authToken = process.env.TWILIO_TOKEN || "";
@@ -10,18 +10,16 @@ export default class TwilioService extends Twilio implements LeadExternal {
   constructor() {
     super(accountSid, authToken);
   }
-  async sendMsg({
-    message,
-    phone,
-  }: {
-    message: string;
-    phone: string;
-  }): Promise<any> {
+  async sendMsg(phones: Message[]): Promise<any> {
     try{
-        const parsePhone = `+${phone}`
-        const mapMsg = { body: message, to: parsePhone, from:fromNumber };
-        const response = await this.messages.create(mapMsg);
-        return response
+        const responses: any[] = [];
+        phones.forEach(async ({ message, phone }) => {
+          const parsePhone = `+${phone}`
+          const mapMsg = { body: message, to: parsePhone, from: fromNumber };
+          const response = await this.messages.create(mapMsg);
+          responses.push(response);
+        });
+        return responses;
     }catch(e){
         console.log(e)
         return Promise.reject(e)
