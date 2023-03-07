@@ -1,6 +1,5 @@
 # SEND WHATSAPP MESSAGE API 🔥
 
-
 ## DESCRIPTION
 Send a message to Whatsapp sending a number and a message with
 whatsapp-web.js library
@@ -30,11 +29,6 @@ the app should run in localhost:3001
     GET /qr
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
-
-
 #### Send message to numbers
 
 ```http
@@ -61,19 +55,21 @@ the app should run in localhost:3001
     }
 ```
 
-** NOTE: remember that each number must have country code which means for Colombia 57 then the number ** 
-
-
 #### Response
 ```json
     {
-       "responseExSave": {
-            "status": 200,
-            "message": "Messages have been sent successfully",
-            "hasError": false
-        }
-    }
+      "responseExSave": {
+          "status": 200,
+          "message": "Messages have been sent successfully",
+          "hasError": false
+      }
+   }
 ```
+
+#### Running the app with docker
+
+build a image with this command
+
 
 ## Running the app with docker 🐳
 
@@ -86,7 +82,3 @@ the app should run in localhost:3001
 ```bash
    docker run -d -p 80:3001 whatsapp-sender  
 ```
-
-
-
-
