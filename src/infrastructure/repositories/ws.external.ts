@@ -5,13 +5,19 @@ import LeadExternal, { Message } from "../../domain/lead-external.repository";
 /**
  * Extendemos los super poderes de whatsapp-web
  */
+
+const enviroment = process.env.NODE_ENV ||  "development";
+const puppeteerConfig =  enviroment === "development" ? { headless: true } : { headless: true, executablePath: '/usr/bin/chromium-browser',
+args: ['--no-sandbox', '--headless', '--disable-gpu']
+
+}
 class WsTransporter extends Client implements LeadExternal {
   private status = false;
 
   constructor() {
     super({
       authStrategy: new LocalAuth({ clientId: 'client-one' }),
-      puppeteer: { headless: true },
+      puppeteer: puppeteerConfig
     });
 
     console.log('Iniciando....');
