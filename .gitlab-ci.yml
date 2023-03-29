@@ -1,0 +1,18 @@
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      when: never # Prevent pipeline run for push event
+    - when: always # Run pipeline for all other cases
+
+stages:
+  - build_image
+
+build_image_job:
+  stage: build_image
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t registry.gitlab.com/clientes_somos_creandola/api_whatsapp .
+    - docker login registry.gitlab.com -u $REGISTRY_USER -p $REGISTRY_TOKEN
+    - docker push registry.gitlab.com/clientes_somos_creandola/api_whatsapp
