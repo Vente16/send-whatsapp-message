@@ -13,7 +13,7 @@ const puppeteerConfig =
     : {
         headless: true,
         executablePath: "/usr/bin/chromium-browser",
-        args: ["--no-sandbox", "--headless", "--disable-gpu"],
+        args: ["--no-sandbox", "--headless", "--disable-gpu"]
       };
 class WsTransporter extends Client implements LeadExternal {
   private status = false;
@@ -21,7 +21,7 @@ class WsTransporter extends Client implements LeadExternal {
   constructor() {
     super({
       authStrategy: new LocalAuth({ clientId: "client-one" }),
-      puppeteer: puppeteerConfig,
+      puppeteer: puppeteerConfig
     });
 
     console.log("Iniciando....");
@@ -38,7 +38,7 @@ class WsTransporter extends Client implements LeadExternal {
       console.log("LOGIN_FAIL");
     });
 
-    this.on("qr", (qr) => {
+    this.on("qr", qr => {
       console.log("Escanea el codigo QR que esta en la carepta tmp");
       this.generateImage(qr);
     });
@@ -63,14 +63,14 @@ class WsTransporter extends Client implements LeadExternal {
         phone: phones[index].phone,
         message: phones[index].message,
         sent: promise.status === "fulfilled",
-        whatsappId: promise.status === "rejected" ? null : promise.value.id.id,
+        whatsappId: promise.status === "rejected" ? null : promise.value.id.id
       }));
 
       return {
         status: 200,
         message: "Messages have been sent successfully",
         hasError: false,
-        responses,
+        responses
       };
     } catch (e: any) {
       return Promise.resolve({ error: e.message, hasError: true });
