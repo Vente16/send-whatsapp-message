@@ -34,6 +34,7 @@
     "@types/qr-image": "^3.2.5",
     "@types/twilio": "^3.19.3",
     "@types/uuid": "^8.3.4",
+    "prettier": "2.8.8",
     "typescript": "^4.7.4"
   }
 }
